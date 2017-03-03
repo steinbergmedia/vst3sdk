@@ -1,0 +1,18 @@
+[submodule "base"]
+	path = base
+	url = ../vst3_base
+[submodule "cmake"]
+	path = cmake
+	url = ../vst3_cmake
+[submodule "doc"]
+	path = doc
+	url = ../vst3_doc
+[submodule "pluginterfaces"]
+	path = pluginterfaces
+	url = ../vst3_pluginterfaces
+[submodule "public.sdk"]
+	path = public.sdk
+	url = ../vst3_public_sdk
+[submodule "vstgui4"]
+	path = vstgui4
+	url = ../vstgui
