@@ -32,7 +32,7 @@ The source code of a VST Plug-in is platform independent, but the delivery syste
 - On **Mac OS X**, a VST Plug-in is a Mach-O Bundle
 - On **Linux**, a VST Plug-in is a package
 
-To learn more about VST you can subscribe to the [VST Developer Forum](https://sdk.steinberg.net) - check the 3rd Party Developer Support section at [www.steinberg.net](www.steinberg.net). 
+To learn more about VST you can subscribe to the [VST Developer Forum](https://sdk.steinberg.net) - check the 3rd Party Developer Support section at [www.steinberg.net](http://www.steinberg.net). 
  
  ---
 
@@ -86,7 +86,8 @@ Some more features implemented specifically for developers include:
 - Multiple Plug-ins per Library
 - Test Host included
 - Automated Testing Environment
-- Validator (small command line Test Host) and Plug-in examples code included. 
+- Validator (small command line Test Host) and Plug-in examples code included
+
 ---
 ## License
-More details are found at [www.steinberg.net/sdklicenses_vst3](www.steinberg.net/sdklicenses_vst3)
+More details are found at [www.steinberg.net/sdklicenses_vst3](http://www.steinberg.net/sdklicenses_vst3)
