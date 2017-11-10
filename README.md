@@ -1,8 +1,8 @@
-# Welcome to VST SDK 3.6.7
+# Welcome to VST SDK 3.6.8
 ## The VST SDK package contains:
 - The VST 3 API
 - VST 3 Implementation Helper Classes
-- AU and VST2 wrappers
+- AAX, AU and VST 2 wrappers
 - VST 3 Plug-ins Examples
 
 The full VST 3 SDK is available [here!](https://www.steinberg.net/en/company/developers.html). It contains a VST 3 Plug-in Test Host Application/Validator.
@@ -13,10 +13,10 @@ Supported OS:
 - Microsoft Windows 7-10
 - Apple OSX 10.7-10.12
 - Apple iOS 8-9
-- Linux (Preview)
+- Linux (Beta version)
 
 Supported IDE:
-- Visual Studio 2013/2015
+- Visual Studio 2015/2017
 - Xcode 6/7
 - Qt Creator
 
@@ -89,5 +89,5 @@ Some more features implemented specifically for developers include:
 - Validator (small command line Test Host) and Plug-in examples code included
 
 ---
-## License
+## License & Usage guidelines
 More details are found at [www.steinberg.net/sdklicenses_vst3](http://www.steinberg.net/sdklicenses_vst3)

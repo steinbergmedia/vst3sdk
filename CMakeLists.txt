@@ -14,8 +14,11 @@ include(ExportedSymbols)
 include(PrefixHeader)
 include(PlatformIOS)
 
-# do not build VST2 by default
+# do not build VST 2 by default
 option(SMTG_CREATE_VST2_VERSION "Use VST2" OFF)
+
+# use by default SMTG_ as prefix for ASSERT,...
+option(SMTG_RENAME_ASSERT "Rename ASSERT to SMTG_ASSERT" ON)
 
 #-------------------------------------------------------------------------------
 # SDK Project
@@ -23,7 +26,15 @@ option(SMTG_CREATE_VST2_VERSION "Use VST2" OFF)
 set(VST_SDK TRUE)
 project(vstsdk)
 
+if (SMTG_RENAME_ASSERT)
+	add_compile_options(-DSMTG_RENAME_ASSERT=1)
+endif()
+	
+#------------
 if (LINUX)
+	# Enable Sample audioHost (based on Jack Audio)
+	option(SMTG_ENABLE_USE_OF_JACK "Enable Use of Jack" ON)
+	
     option(SMTG_ADD_ADDRESS_SANITIZER_CONFIG "Add AddressSanitizer Config (Linux only)" OFF)
 	if(SMTG_ADD_ADDRESS_SANITIZER_CONFIG)
 		set(CMAKE_CONFIGURATION_TYPES "${CMAKE_CONFIGURATION_TYPES};ASan")
@@ -35,8 +46,13 @@ if (LINUX)
 		set(ASAN_LIBRARY asan)
 		link_libraries($<$<CONFIG:ASan>:${ASAN_LIBRARY}>)
 	endif()
+else()
+	# Disable Sample audioHost (based on Jack Audio)
+	# not yet tested on Windows and Mac
+	option(SMTG_ENABLE_USE_OF_JACK "Enable Use of Jack" OFF)
 endif()
 
+#------------
 if(UNIX)
 	if(XCODE)
 		set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LANGUAGE_STANDARD "c++14")
@@ -51,20 +67,22 @@ if(UNIX)
 		link_libraries(stdc++fs pthread dl)
 	endif()
 
+#------------
 elseif(WIN)
 	add_definitions(-D_UNICODE)
 	add_compile_options(/fp:fast)
 	add_compile_options($<$<CONFIG:Release>:/Oi>)	# Enable Intrinsic Functions (Yes)
 	add_compile_options($<$<CONFIG:Release>:/Ot>)	# Favor Size Or Speed (Favor fast code)
-	#add_compile_options($<$<CONFIG:Release>:/Ox>)	# Optimization (/O2: Maximise Speed /0x: Full Optimization)
 	add_compile_options($<$<CONFIG:Release>:/GF>)	# Enable String Pooling
 	add_compile_options($<$<CONFIG:Release>:/EHa>)	# Enable C++ Exceptions
 	add_compile_options($<$<CONFIG:Release>:/Oy>)	# Omit Frame Pointers
+	#add_compile_options($<$<CONFIG:Release>:/Ox>)	# Optimization (/O2: Maximise Speed /0x: Full Optimization)
 endif()
+#------------
 
 set(ROOT "${CMAKE_CURRENT_SOURCE_DIR}")
 
-# here you can define where the VST3 SDK is located
+# here you can define where the VST 3 SDK is located
 set(SDK_ROOT "${ROOT}")
 
 # here you can define where the VSTGUI is located
@@ -76,6 +94,8 @@ set(SDK_IDE_LIBS_FOLDER FOLDER "Libraries")
 set(SDK_IDE_PLUGIN_EXAMPLES_FOLDER FOLDER "PlugInExamples")
 set(SDK_IDE_HOSTING_EXAMPLES_FOLDER FOLDER "HostingExamples")
 
+#-------------------------------------------------------------------------------
+# CORE AUDIO SDK Location
 #-------------------------------------------------------------------------------
 if(MAC AND XCODE)
 	if(NOT SMTG_COREAUDIO_SDK_PATH)
@@ -97,6 +117,36 @@ if(MAC AND XCODE)
 	endif()
 	if(SMTG_COREAUDIO_SDK_PATH)
 		message(STATUS "SMTG_COREAUDIO_SDK_PATH is set to : " ${SMTG_COREAUDIO_SDK_PATH})
+	else()
+		message(STATUS "SMTG_COREAUDIO_SDK_PATH is not set. If you need it, please download the COREAUDIO SDK!")
+	endif()
+endif()
+
+#-------------------------------------------------------------------------------
+# AAX SDK Location
+#-------------------------------------------------------------------------------
+if(MAC OR WIN)
+	if(NOT SMTG_AAX_SDK_PATH)
+		# Check if the AAX SDK is next to the VST3SDK:
+		if(EXISTS "${SDK_ROOT}/../external.avid.aax/Interfaces/AAX.h")
+			set(SMTG_AAX_SDK_PATH "${SDK_ROOT}/../external.avid.aax")
+		else()
+			if(EXISTS "${SDK_ROOT}/external.avid.aax/Interfaces/AAX.h")
+				set(SMTG_AAX_SDK_PATH "${SDK_ROOT}/external.avid.aax")	
+			endif()
+		endif()
+	else()
+		if(NOT IS_ABSOLUTE ${SMTG_AAX_SDK_PATH})
+			get_filename_component(SMTG_AAX_SDK_PATH "${SDK_ROOT}/${SMTG_AAX_SDK_PATH}" ABSOLUTE)
+		endif()
+		if(NOT EXISTS "${SMTG_AAX_SDK_PATH}/Interfaces/AAX.h")
+			message(FATAL_ERROR "SMTG_AAX_SDK_PATH is set but does not point to an expected location")
+		endif()
+	endif()
+	if(SMTG_AAX_SDK_PATH)
+		message(STATUS "SMTG_AAX_SDK_PATH is set to : " ${SMTG_AAX_SDK_PATH})
+	else()
+		message(STATUS "SMTG_AAX_SDK_PATH is not set. If you need it, please download the AAX SDK!")
 	endif()
 endif()
 
@@ -109,26 +159,22 @@ add_subdirectory(public.sdk)
 add_subdirectory(public.sdk/source/vst/auwrapper)
 add_subdirectory(public.sdk/source/vst/auwrapper/again)
 add_subdirectory(public.sdk/source/vst/interappaudio)
-add_subdirectory(public.sdk/samples/vst/again)
-add_subdirectory(public.sdk/samples/vst/adelay)
-add_subdirectory(public.sdk/samples/vst/channelcontext)
-add_subdirectory(public.sdk/samples/vst/hostchecker)
-add_subdirectory(public.sdk/samples/vst/editorhost)
-add_subdirectory(public.sdk/samples/vst/mda-vst3)
-add_subdirectory(public.sdk/samples/vst/note_expression_synth)
-add_subdirectory(public.sdk/samples/vst/note_expression_text)
-add_subdirectory(public.sdk/samples/vst/pitchnames)
-add_subdirectory(public.sdk/samples/vst/prefetchablesupport)
-add_subdirectory(public.sdk/samples/vst/programchange)
-add_subdirectory(public.sdk/samples/vst/validator)
-add_subdirectory(public.sdk/samples/vst/InterAppAudio)
+if(SMTG_AAX_SDK_PATH)
+	add_subdirectory(public.sdk/source/vst/aaxwrapper)
+endif()
 
-set(VSTGUI_DISABLE_UNITTESTS 1)
-add_subdirectory(vstgui4/vstgui)
+# add VST3 examples (plugins and hosting)
+add_subdirectory(public.sdk/samples/vst)
+add_subdirectory(public.sdk/samples/vst-hosting)
 
 #-------------------------------------------------------------------------------
 # VSTGUI Support Library
 #-------------------------------------------------------------------------------
+set(VSTGUI_DISABLE_UNITTESTS 1)
+set(VSTGUI_DISABLE_STANDALONE 1)
+set(VSTGUI_DISABLE_STANDALONE_EXAMPLES 1)
+add_subdirectory(vstgui4/vstgui)
+
 add_compile_options($<$<CONFIG:Debug>:-DVSTGUI_LIVE_EDITING=1>)
 set(VST3_VSTGUI_SOURCES
 	${VSTGUI_ROOT}/vstgui4/vstgui/plugin-bindings/vst3groupcontroller.cpp
@@ -164,57 +210,15 @@ set_target_properties(sdk PROPERTIES ${SDK_IDE_LIBS_FOLDER})
 set_target_properties(base PROPERTIES ${SDK_IDE_LIBS_FOLDER})
 set_target_properties(vstgui PROPERTIES ${SDK_IDE_LIBS_FOLDER})
 set_target_properties(vstgui_uidescription PROPERTIES ${SDK_IDE_LIBS_FOLDER})
-
-if (TARGET again)
-    set_target_properties(again PROPERTIES ${SDK_IDE_PLUGIN_EXAMPLES_FOLDER})
+if (TARGET vstgui_standalone)
+  set_target_properties(vstgui_standalone PROPERTIES ${SDK_IDE_LIBS_FOLDER})
 endif()
-if (TARGET againsimple)
-    set_target_properties(againsimple PROPERTIES ${SDK_IDE_PLUGIN_EXAMPLES_FOLDER})
+if(SMTG_AAX_SDK_PATH)
+	set_target_properties(aaxwrapper PROPERTIES ${SDK_IDE_LIBS_FOLDER})
 endif()
-if (TARGET adelay)
-    set_target_properties(adelay PROPERTIES ${SDK_IDE_PLUGIN_EXAMPLES_FOLDER})
-endif()
-if (TARGET channelcontext)
-    set_target_properties(channelcontext PROPERTIES ${SDK_IDE_PLUGIN_EXAMPLES_FOLDER})
-endif()
-if (TARGET hostchecker)
-    set_target_properties(hostchecker PROPERTIES ${SDK_IDE_PLUGIN_EXAMPLES_FOLDER})
-endif()
-if (TARGET mda-vst3)
-    set_target_properties(mda-vst3 PROPERTIES ${SDK_IDE_PLUGIN_EXAMPLES_FOLDER})
-endif()
-if (TARGET noteexpressionsynth)
-    set_target_properties(noteexpressionsynth PROPERTIES ${SDK_IDE_PLUGIN_EXAMPLES_FOLDER})
-endif()
-if (TARGET noteexpressiontext)
-    set_target_properties(noteexpressiontext PROPERTIES ${SDK_IDE_PLUGIN_EXAMPLES_FOLDER})
-endif()
-if (TARGET pitchnames)
-    set_target_properties(pitchnames PROPERTIES ${SDK_IDE_PLUGIN_EXAMPLES_FOLDER})
-endif()
-if (TARGET prefetchablesupport)
-    set_target_properties(prefetchablesupport PROPERTIES ${SDK_IDE_PLUGIN_EXAMPLES_FOLDER})
-endif()
-if (TARGET programchange)
-    set_target_properties(programchange PROPERTIES ${SDK_IDE_PLUGIN_EXAMPLES_FOLDER})
-endif()
-
-if (TARGET editorhost)
-    set_target_properties(editorhost PROPERTIES ${SDK_IDE_HOSTING_EXAMPLES_FOLDER})
-endif()
-if (TARGET validator)
-    set_target_properties(validator PROPERTIES ${SDK_IDE_HOSTING_EXAMPLES_FOLDER})
-endif ()
 
 if(MAC AND XCODE)
-	if(SMTG_COREAUDIO_SDK_PATH)
-		set_target_properties(auwrapper PROPERTIES ${SDK_IDE_LIBS_FOLDER})
-		set_target_properties(again_au PROPERTIES ${SDK_IDE_PLUGIN_EXAMPLES_FOLDER})
-	endif()
 	if(IOS_DEVELOPMENT_TEAM)
-		set_target_properties(sdk_ios PROPERTIES ${SDK_IDE_LIBS_FOLDER})
 		set_target_properties(base_ios PROPERTIES ${SDK_IDE_LIBS_FOLDER})
-		set_target_properties(interappaudio PROPERTIES ${SDK_IDE_LIBS_FOLDER})
-		set_target_properties(noteexpressionsynth_ios PROPERTIES ${SDK_IDE_PLUGIN_EXAMPLES_FOLDER})
 	endif()
 endif()
