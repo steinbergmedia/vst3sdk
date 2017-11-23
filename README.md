@@ -11,13 +11,13 @@ The full VST 3 SDK is available [here!](https://www.steinberg.net/en/company/dev
 Supported OS:
 
 - Microsoft Windows 7-10
-- Apple OSX 10.7-10.12
+- Apple OSX 10.7-10.13
 - Apple iOS 8-9
 - Linux (Beta version)
 
 Supported IDE:
 - Visual Studio 2015/2017
-- Xcode 6/7
+- minimum Xcode 7
 - Qt Creator
 
 ---
