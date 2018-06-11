@@ -56,6 +56,7 @@ setupAaxSupport()
 set(SDK_IDE_LIBS_FOLDER FOLDER "Libraries")
 
 #---Add base libraries---------------------------
+set(VST_SDK TRUE) # used for Base module which provides only a subset of Base for VST-SDK
 add_subdirectory(base)
 add_subdirectory(public.sdk)
 add_subdirectory(public.sdk/source/vst/interappaudio)
