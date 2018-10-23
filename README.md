@@ -1,4 +1,4 @@
-# Welcome to VST SDK 3.6.10
+# Welcome to VST SDK 3.6.11
 
 ## Table Of Contents
 1. [The VST SDK package](#100)
@@ -19,7 +19,6 @@
 The full VST 3 SDK is available [here!](https://www.steinberg.net/en/company/developers.html). It contains :
 - a VST 3 Plug-in Test Host Application/Validator,
 - the <b>Steinberg VST 3 Plug-In SDK Licensing Agreement</b> that you have to sign if you want to develop or host VST 3 Plug-Ins.
-- the <b>Steinberg VST 2 Plug-In SDK Licensing Agreement</b> that you have to sign if you want to develop or host VST 2 Plug-Ins.
 
 
 <div id='200'/>
@@ -118,6 +117,7 @@ Some more features implemented specifically for developers include:
 </pre>
 
 ### Adding VST2 version
+The VST2 SDK is not part anymore of the VST3 SDK, you have to use an older version of the SDK and copy the VST2_SDK folder into the VST_SDK folder.
 In order to build a VST2 version of the Plug-in and a VST3 at the same time, you need to copy the VST2 folder into the VST3 folder, simply run the following commands:
 - for macOS:
 <pre>
