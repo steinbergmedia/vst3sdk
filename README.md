@@ -1,4 +1,4 @@
-# Welcome to VST SDK 3.6.11
+# Welcome to VST SDK 3.6.12
 
 ## Table Of Contents
 1. [The VST SDK package](#100)

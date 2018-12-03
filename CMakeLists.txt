@@ -32,6 +32,7 @@ set(ROOT "${CMAKE_CURRENT_SOURCE_DIR}")
 # Here you can define where the VST 3 SDK is located
 set(SDK_ROOT "${ROOT}")
 set(public_sdk_SOURCE_DIR ${SDK_ROOT}/public.sdk)
+set(pluginterfaces_SOURCE_DIR ${SDK_ROOT}/pluginterfaces)
 
 # Here you can define where the VSTGUI is located
 if(SMTG_ADD_VSTGUI)
@@ -110,6 +111,6 @@ if(SMTG_ADD_VSTGUI)
     endif()
 endif()
 
-if(MAC AND XCODE AND SMTG_IOS_DEVELOPMENT_TEAM)
+if(SMTG_MAC AND XCODE AND SMTG_IOS_DEVELOPMENT_TEAM)
     set_target_properties(base_ios PROPERTIES ${SDK_IDE_LIBS_FOLDER})
 endif()
