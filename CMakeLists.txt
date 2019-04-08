@@ -59,6 +59,7 @@ set(SDK_IDE_LIBS_FOLDER FOLDER "Libraries")
 
 #---Add base libraries---------------------------
 set(VST_SDK TRUE) # used for Base module which provides only a subset of Base for VST-SDK
+add_subdirectory(pluginterfaces)
 add_subdirectory(base)
 add_subdirectory(public.sdk)
 add_subdirectory(public.sdk/source/vst/interappaudio)
@@ -100,6 +101,10 @@ add_subdirectory(public.sdk/samples/vst-hosting)
 #-------------------------------------------------------------------------------
 set_target_properties(sdk PROPERTIES ${SDK_IDE_LIBS_FOLDER})
 set_target_properties(base PROPERTIES ${SDK_IDE_LIBS_FOLDER})
+set_target_properties(pluginterfaces PROPERTIES ${SDK_IDE_LIBS_FOLDER})
+if(TARGET base_ios)
+    set_target_properties(base_ios PROPERTIES ${SDK_IDE_LIBS_FOLDER})
+endif()
 
 if(SMTG_ADD_VSTGUI)
     set_target_properties(vstgui PROPERTIES ${SDK_IDE_LIBS_FOLDER})
@@ -109,8 +114,4 @@ if(SMTG_ADD_VSTGUI)
     if(TARGET vstgui_standalone)
         set_target_properties(vstgui_standalone PROPERTIES ${SDK_IDE_LIBS_FOLDER})
     endif()
-endif()
-
-if(SMTG_MAC AND XCODE AND SMTG_IOS_DEVELOPMENT_TEAM)
-    set_target_properties(base_ios PROPERTIES ${SDK_IDE_LIBS_FOLDER})
 endif()
