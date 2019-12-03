@@ -7,18 +7,7 @@ cmake_minimum_required (VERSION 3.4.3)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
 
-include(Global)
-include(AddVST3Library)
-include(Bundle)
-include(ExportedSymbols)
-include(PrefixHeader)
-include(PlatformIOS)
-include(PlatformToolset)
-include(CoreAudioSupport)
-include(AAXSupport)
-include(VstGuiSupport)
-include(UniversalBinary)
-include(AddVST3Options)
+include(SMTG_VST3_SDK)
 
 #-------------------------------------------------------------------------------
 # SDK Project

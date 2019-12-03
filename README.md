@@ -1,3 +1,6 @@
+<div style="text-align:center">
+<img src="https://steinbergmedia.github.io/vst3_doc/gfx/vst3_logo.jpg" alt="VST SDK 3" /></div>
+
 # Welcome to VST SDK 3.6.x
 
 ## Table Of Contents
@@ -31,8 +34,8 @@ The full VST 3 SDK is available [here!](https://www.steinberg.net/en/company/dev
 Supported OS:
 
 - Microsoft Windows 7-10
-- Apple OSX 10.9-10.13
-- Apple iOS 8-9
+- Apple OSX 10.9-10.15
+- Apple iOS 8-13
 - Linux (Beta version)
 
 Supported IDE:
@@ -56,7 +59,11 @@ The source code of a VST Plug-in is platform independent, but the delivery syste
 - On **Mac OS X**, a VST Plug-in is a Mach-O Bundle
 - On **Linux**, a VST Plug-in is a package
 
-To learn more about VST you can subscribe to the [VST Developer Forum](https://sdk.steinberg.net) - check the 3rd Party Developer Support section at [www.steinberg.net](http://www.steinberg.net).
+To learn more about VST you can:
+-  subscribe to the [VST Developer Forum](https://sdk.steinberg.net)
+- check the 3rd Party Developer Support section at [www.steinberg.net](https://www.steinberg.net/en/company/developers.html)
+- check the online documentation under: [steinbergmedia.github.io/vst3_doc](
+https://steinbergmedia.github.io/vst3_doc)
 
  ---
 <div id='400'/>
@@ -218,7 +225,12 @@ copy_vst2_to_vst3_sdk.bat
 - Generate the Solution/Projects: provide the path of the Project where CMakeLists.txt is located:
 
 <pre>
-    cmake.exe -G"Visual Studio 15 2017 Win64" ../vst3sdk
+examples:
+    cmake.exe -G "Visual Studio 16 2019" -A x64 ../vst3sdk
+	or
+	cmake.exe -G "Visual Studio 15 2017" -A x64 ../vst3sdk
+	or
+	cmake.exe -G "Visual Studio 15 2017" -A Win32 ../vst3sdk
 </pre>
 
 - Now you can build the Plug-in (you can use Visual Studio too):
