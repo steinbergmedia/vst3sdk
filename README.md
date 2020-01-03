@@ -166,6 +166,8 @@ copy_vst2_to_vst3_sdk.bat
 
 ### Build the examples on Linux
 
+- Install the pre-requisites [steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html](https://steinbergmedia.github.io/vst3_doc/vstinterfaces/linuxSetup.html)
+
 - Create a folder for the build and move to this folder (using cd):
 
 <pre>
