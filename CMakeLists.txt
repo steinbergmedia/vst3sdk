@@ -93,6 +93,7 @@ set_target_properties(base PROPERTIES ${SDK_IDE_LIBS_FOLDER})
 set_target_properties(pluginterfaces PROPERTIES ${SDK_IDE_LIBS_FOLDER})
 if(TARGET base_ios)
     set_target_properties(base_ios PROPERTIES ${SDK_IDE_LIBS_FOLDER})
+    set_target_properties(pluginterfaces_ios PROPERTIES ${SDK_IDE_LIBS_FOLDER})
 endif()
 
 if(SMTG_ADD_VSTGUI)
