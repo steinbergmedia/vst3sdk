@@ -60,7 +60,8 @@ The source code of a VST plug-in is platform independent, but the delivery syste
 - On **Linux**, a VST plug-in is a package
 
 To learn more about VST you can:
--  subscribe to the [VST Developer Forum](https://sdk.steinberg.net)
+- check the [VST portal](https://developer.steinberg.help/display/VST) dedicated to developers of VST 3 plug-ins and VST 3 hosts
+- subscribe to the [VST Developer Forum](https://sdk.steinberg.net)
 - check the 3rd Party Developer Support section at [www.steinberg.net](https://www.steinberg.net/en/company/developers.html)
 - check the online documentation under: [steinbergmedia.github.io/vst3_doc](
 https://steinbergmedia.github.io/vst3_doc)
