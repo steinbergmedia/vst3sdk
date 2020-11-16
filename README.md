@@ -31,18 +31,17 @@ The full VST 3 SDK is available [here!](https://www.steinberg.net/en/company/dev
 
 ## System requirements
 
-Supported OS:
+Supported Platforms:
 
-- Microsoft Windows 7-10
-- Apple OSX 10.9-10.15
-- Apple iOS 8-13
-- Linux (Beta version)
-
-Supported IDE:
-
-- Visual Studio 2015/2017/2019
-- minimum Xcode 7
-- Qt Creator
+| Operating System|Architecture|Compiler | Notes|
+| :------------- | :----------: | -----------: |-----------:|
+|Windows 10 |x86, x86_64 |MSVC 2019, MSVC 2017 | |
+|Windows 8.1 |x86, x86_64 |MSVC 2019, MSVC 2017 | |
+|macOS 10.13, 10.14, 10.15 |x86, x86_64, Apple Silicon |Xcode 7, 8, 9, 10, 11 ||
+|iOS 13, iOS 14 | arm64 |Xcode 11| |
+|Linux - Raspberry Pi OS (Buster)  |arm32 |GCC 8.3 and higher|Visual Studio Code|
+|Linux - Ubuntu 18.04 LTS |x86, x86_64 |GCC 8.3 and higher|Visual Studio Code, Qt Creator|
+|Linux - Ubuntu 20.04 LTS |x86, x86_64 |GCC 8.3 and higher|Visual Studio Code, Qt Creator|
 
 ---
 <div id='300'/>
@@ -60,7 +59,7 @@ The source code of a VST plug-in is platform independent, but the delivery syste
 - On **Linux**, a VST plug-in is a package
 
 To learn more about VST you can:
-- check the [VST portal](https://developer.steinberg.help/display/VST) dedicated to developers of VST 3 plug-ins and VST 3 hosts
+
 - subscribe to the [VST Developer Forum](https://sdk.steinberg.net)
 - check the 3rd Party Developer Support section at [www.steinberg.net](https://www.steinberg.net/en/company/developers.html)
 - check the online documentation under: [steinbergmedia.github.io/vst3_doc](
@@ -87,7 +86,7 @@ VST 3 also features vastly improved parameter automation with sample accuracy an
 
 ### 4. Logical Parameter Organization
 
-The VST 3 plug-in parameters are displayed in a tree structure. Parameters are grouped into sections which represent the structure of the plug-in. plug-ins can communicate their internal structure for the purpose of overview, but also for some associated functionality (eg. program-lists).
+The VST 3 plug-in parameters are displayed in a tree structure. Parameters are grouped into sections which represent the structure of the plug-in. Plug-ins can communicate their internal structure for the purpose of overview, but also for some associated functionality (eg. program-lists).
 
 ### 5. Resizeable UI Editor
 
@@ -103,7 +102,7 @@ VST 3 defines a way to allow the host to add its own entries in the plug-in cont
 
 ### 8. Channel Context Information
 
-A VST 3 plug-in could access some channel information where it is instantiated: name, color,...
+A VST 3 plug-in could access some channel information where it is instantiated: name, color, ...
 
 ### 9. Note Expression
 
@@ -167,6 +166,7 @@ copy_vst2_to_vst3_sdk.bat
 
 ### Build the examples on Linux
 
+- Install the required packages [Package Requirements](https://developer.steinberg.help/display/VST/How+to+set+up+my+system+for+VST+3#HowtosetupmysystemforVST3-ForLinux)
 - Create a folder for the build and move to this folder (using cd):
 
 <pre>
