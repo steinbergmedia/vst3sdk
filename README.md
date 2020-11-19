@@ -37,8 +37,8 @@ Supported Platforms:
 | :------------- | :----------: | -----------: |-----------:|
 |Windows 10 |x86, x86_64 |MSVC 2019, MSVC 2017 | |
 |Windows 8.1 |x86, x86_64 |MSVC 2019, MSVC 2017 | |
-|macOS 10.13, 10.14, 10.15 |x86, x86_64, Apple Silicon |Xcode 7, 8, 9, 10, 11 ||
-|iOS 13, iOS 14 | arm64 |Xcode 11| |
+|macOS 10.13, 10.14, 10.15, 11.0 |x86, x86_64, Apple Silicon |Xcode 7, 8, 9, 10, 11, 12.2 ||
+|iOS 13, iOS 14 | arm64 |Xcode 11, 12.2| |
 |Linux - Raspberry Pi OS (Buster)  |arm32 |GCC 8.3 and higher|Visual Studio Code|
 |Linux - Ubuntu 18.04 LTS |x86, x86_64 |GCC 8.3 and higher|Visual Studio Code, Qt Creator|
 |Linux - Ubuntu 20.04 LTS |x86, x86_64 |GCC 8.3 and higher|Visual Studio Code, Qt Creator|
