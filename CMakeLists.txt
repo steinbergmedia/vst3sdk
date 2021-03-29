@@ -33,7 +33,11 @@ set(public_sdk_SOURCE_DIR ${SDK_ROOT}/public.sdk)
 set(pluginterfaces_SOURCE_DIR ${SDK_ROOT}/pluginterfaces)
 
 # Disable all VST3 samples when using SDK as subdirectory
-if(NOT ${CMAKE_SOURCE_DIR} MATCHES ${CMAKE_CURRENT_LIST_DIR})
+message(STATUS "[SMTG] CMAKE_SOURCE_DIR is set to: ${CMAKE_SOURCE_DIR}")
+message(STATUS "[SMTG] CMAKE_CURRENT_LIST_DIR is set to: ${CMAKE_CURRENT_LIST_DIR}")
+
+if(NOT ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_LIST_DIR})
+    message(STATUS "[SMTG] Disable all VST3 samples")
     set(SMTG_ADD_VST3_PLUGINS_SAMPLES OFF)
     set(SMTG_ADD_VST3_HOSTING_SAMPLES OFF)
     set(SMTG_ADD_MYPLUGINS_SRC_PATH OFF)
@@ -45,7 +49,7 @@ endif()
 if(SMTG_ADD_VSTGUI)
     set(SMTG_VSTGUI_ROOT "${ROOT}")
     smtg_enable_vstgui_support()
-endif()
+endif(SMTG_ADD_VSTGUI)
 
 include_directories(${ROOT} ${SDK_ROOT})
 
@@ -73,7 +77,7 @@ add_subdirectory(public.sdk/source/vst/interappaudio)
 #---Add Wrappers (AU, AAX)-----------------------
 if(SMTG_COREAUDIO_SDK_PATH)
     add_subdirectory(public.sdk/source/vst/auwrapper)
-endif()
+endif(SMTG_COREAUDIO_SDK_PATH)
 
 if(SMTG_AAX_SDK_PATH)
     add_subdirectory(public.sdk/source/vst/aaxwrapper)
@@ -81,7 +85,7 @@ if(SMTG_AAX_SDK_PATH)
         PROPERTIES
             ${SDK_IDE_LIBS_FOLDER}
     )
-endif()
+endif(SMTG_AAX_SDK_PATH)
 
 # Add hosting examples, it includes the validator (must be done before any plug-ins to support running the validator after building)
 set(SDK_IDE_HOSTING_EXAMPLES_FOLDER FOLDER "HostingExamples")
@@ -95,9 +99,9 @@ if(SMTG_ADD_MYPLUGINS_SRC_PATH)
     set(SMTG_MYPLUGINS_SRC_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../my_plugins" CACHE PATH "Here you can add Your VST3 Plug-ins folder")
 
     if(EXISTS ${SMTG_MYPLUGINS_SRC_PATH})
-        message(STATUS "SMTG_MYPLUGINS_SRC_PATH is set to : " ${SMTG_MYPLUGINS_SRC_PATH})
+        message(STATUS "[SMTG] SMTG_MYPLUGINS_SRC_PATH is set to: " ${SMTG_MYPLUGINS_SRC_PATH})
     else()
-        message(STATUS "SMTG_MYPLUGINS_SRC_PATH is not set. If you want to add your own Plug-ins folder, specify it!")
+        message(STATUS "[SMTG] SMTG_MYPLUGINS_SRC_PATH is not set. If you want to add your own Plug-ins folder, specify it!")
     endif()
 
     set(SDK_IDE_MYPLUGINS_FOLDER FOLDER "MyPlugIns")
@@ -105,7 +109,7 @@ if(SMTG_ADD_MYPLUGINS_SRC_PATH)
         set(SMTG_MYPLUGINS_BIN_PATH "${SMTG_MYPLUGINS_SRC_PATH}/build")
         add_subdirectory(${SMTG_MYPLUGINS_SRC_PATH} ${SMTG_MYPLUGINS_BIN_PATH})
     endif()
-endif()
+endif(SMTG_ADD_MYPLUGINS_SRC_PATH)
 
 #---Add VST3 examples (plug-ins and hosting)-----
 if(SMTG_ADD_VST3_PLUGINS_SAMPLES)
@@ -113,30 +117,63 @@ if(SMTG_ADD_VST3_PLUGINS_SAMPLES)
     add_subdirectory(public.sdk/samples/vst)
     add_subdirectory(public.sdk/source/vst/auwrapper/again)
     add_subdirectory(public.sdk/source/vst/auv3wrapper)
-endif()
+endif(SMTG_ADD_VST3_PLUGINS_SAMPLES)
 
 #-------------------------------------------------------------------------------
 # IDE sorting
 #-------------------------------------------------------------------------------
-set_target_properties(sdk PROPERTIES ${SDK_IDE_LIBS_FOLDER})
-set_target_properties(sdk_common PROPERTIES ${SDK_IDE_LIBS_FOLDER})
-set_target_properties(sdk_hosting PROPERTIES ${SDK_IDE_LIBS_FOLDER})
-set_target_properties(base PROPERTIES ${SDK_IDE_LIBS_FOLDER})
-set_target_properties(pluginterfaces PROPERTIES ${SDK_IDE_LIBS_FOLDER})
+set_target_properties(sdk
+    PROPERTIES
+        ${SDK_IDE_LIBS_FOLDER}
+)
+set_target_properties(sdk_common
+    PROPERTIES
+        ${SDK_IDE_LIBS_FOLDER}
+)
+set_target_properties(sdk_hosting
+    PROPERTIES
+        ${SDK_IDE_LIBS_FOLDER}
+)
+set_target_properties(base
+    PROPERTIES
+        ${SDK_IDE_LIBS_FOLDER}
+)
+set_target_properties(pluginterfaces
+    PROPERTIES
+        ${SDK_IDE_LIBS_FOLDER}
+)
 if(TARGET base_ios)
-    set_target_properties(base_ios PROPERTIES ${SDK_IDE_LIBS_FOLDER})
-    set_target_properties(pluginterfaces_ios PROPERTIES ${SDK_IDE_LIBS_FOLDER})
-endif()
+    set_target_properties(base_ios
+        PROPERTIES
+            ${SDK_IDE_LIBS_FOLDER}
+    )
+    set_target_properties(pluginterfaces_ios
+        PROPERTIES
+            ${SDK_IDE_LIBS_FOLDER}
+    )
+endif(TARGET base_ios)
 
 if(SMTG_ADD_VSTGUI)
-    set_target_properties(vstgui PROPERTIES ${SDK_IDE_LIBS_FOLDER})
-    set_target_properties(vstgui_support PROPERTIES ${SDK_IDE_LIBS_FOLDER})
-    set_target_properties(vstgui_uidescription PROPERTIES ${SDK_IDE_LIBS_FOLDER})
+    set_target_properties(vstgui
+        PROPERTIES
+            ${SDK_IDE_LIBS_FOLDER}
+    )
+    set_target_properties(vstgui_support
+        PROPERTIES
+            ${SDK_IDE_LIBS_FOLDER}
+    )
+    set_target_properties(vstgui_uidescription
+        PROPERTIES
+            ${SDK_IDE_LIBS_FOLDER}
+    )
 
     if(TARGET vstgui_standalone)
-        set_target_properties(vstgui_standalone PROPERTIES ${SDK_IDE_LIBS_FOLDER})
-    endif()
-endif()
+        set_target_properties(vstgui_standalone
+            PROPERTIES
+                ${SDK_IDE_LIBS_FOLDER}
+        )
+    endif(TARGET vstgui_standalone)
+endif(SMTG_ADD_VSTGUI)
 
 include(SMTG_CustomModuleTarget)
 set_target_properties(cmake_modules PROPERTIES ${SDK_IDE_LIBS_FOLDER})

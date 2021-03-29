@@ -1,5 +1,5 @@
 <div style="text-align:center">
-<img src="https://steinbergmedia.github.io/vst3_doc/gfx/vst3_logo.jpg" alt="VST SDK 3" /></div>
+<img src="https://steinbergmedia.github.io/vst3_doc/gfx/vst3_logo.jpg" alt="VST 3 SDK" /></div>
 
 # Welcome to VST SDK 3.7.x
 
@@ -54,7 +54,7 @@ From the host application's point of view, a VST plug-in is a black box with an 
 
 The source code of a VST plug-in is platform independent, but the delivery system depends on the platform architecture:
 
-- On **Windows**, a VST plug-in is a multi-threaded DLL (Dynamic Link Library), recently packaged into a folder structur.
+- On **Windows**, a VST plug-in is a multi-threaded DLL (Dynamic Link Library), recently packaged into a folder structure.
 - On **Mac OS X**, a VST plug-in is a Mach-O Bundle
 - On **Linux**, a VST plug-in is a package
 
