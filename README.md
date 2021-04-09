@@ -234,6 +234,7 @@ examples:
 	cmake.exe -G "Visual Studio 15 2017" -A Win32 ../vst3sdk
 </pre>
 
+- add the `-DNO_MKLINK=1` argument to cmake.exe if you don't have permission to execute mklink.
 - Now you can build the plug-in (you can use Visual Studio too):
 
 <pre>
