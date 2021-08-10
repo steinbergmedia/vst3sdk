@@ -147,7 +147,7 @@ Some more features implemented specifically for developers include:
 
 ### Adding VST2 version
 
-The VST2 SDK is not part anymore of the VST3 SDK, you have to use an older version of the SDK and copy the VST2_SDK folder into the VST_SDK folder.
+The VST2 SDK is not part anymore of the VST3 SDK, you have to use an older version of the SDK and copy the vst2sdk folder into the VST_SDK folder.
 In order to build a VST2 version of the plug-in and a VST3 at the same time, you need to copy the VST2 folder into the VST3 folder, simply run the following commands:
 
 - for macOS:
@@ -164,28 +164,30 @@ cd TheFolderWhereYouDownloadTheSDK
 copy_vst2_to_vst3_sdk.bat
 </pre>
 
-### Build the examples on Linux
+### Build the examples on Windows
 
-- Install the required packages [Package Requirements](https://developer.steinberg.help/display/VST/How+to+set+up+my+system+for+VST+3#HowtosetupmysystemforVST3-ForLinux)
 - Create a folder for the build and move to this folder (using cd):
 
 <pre>
-    mkdir build
-    cd build
+  mkdir build
+  cd build
 </pre>
 
 - Generate the Solution/Projects: provide the path of the Project where CMakeLists.txt is located:
 
 <pre>
-    cmake ../vst3sdk
+  examples:
+  cmake.exe -G "Visual Studio 16 2019" -A x64 ..\vst3sdk
+  or without symbolic links
+  cmake.exe -G "Visual Studio 16 2019" -A x64 ..\vst3sdk -SMTG_CREATE_PLUGIN_LINK=0
 </pre>
 
-- Now you can build the plug-in:
+- Now you can build the plug-in (you can use Visual Studio too):
 
 <pre>
-    make 
- (or alternatively for example for release)
-    cmake --build . --config Release
+  msbuild.exe vstsdk.sln
+  (or alternatively for example for release)
+  cmake --build . --config Release
 </pre>
 
 ### Build the examples on macOS
@@ -214,38 +216,34 @@ copy_vst2_to_vst3_sdk.bat
     cmake --build . --config Release
 </pre>
 
-### Build the examples on Windows
+### Build the examples on Linux
 
+- Install the required packages [Package Requirements](https://developer.steinberg.help/display/VST/How+to+set+up+my+system+for+VST+3#HowtosetupmysystemforVST3-ForLinux)
 - Create a folder for the build and move to this folder (using cd):
 
 <pre>
-    mkdir build
-    cd build
+  mkdir build
+  cd build
 </pre>
 
 - Generate the Solution/Projects: provide the path of the Project where CMakeLists.txt is located:
 
 <pre>
-examples:
-    cmake.exe -G "Visual Studio 16 2019" -A x64 ../vst3sdk
-	or
-	cmake.exe -G "Visual Studio 15 2017" -A x64 ../vst3sdk
-	or
-	cmake.exe -G "Visual Studio 15 2017" -A Win32 ../vst3sdk
+  cmake ../vst3sdk
 </pre>
 
-- Now you can build the plug-in (you can use Visual Studio too):
+- Now you can build the plug-in:
 
 <pre>
-    msbuild.exe vstsdk.sln
+  make
   (or alternatively for example for release)
-    cmake --build . --config Release
+  cmake --build . --config Release
 </pre>
 
 ### Build using cmake-gui
 
 - start the cmake-gui Application
-- "Browse Source...": select the folder VST3_SDK
+- "Browse Source...": select the folder vst3sdk
 - "Browse Build...": select a folder where the outputs (projects/...) will be created. Typically a folder named "build"
 - you can check the SMTG Options
 - Press "Configure"
