@@ -34,11 +34,11 @@ The full VST 3 SDK is available [here!](https://www.steinberg.net/en/company/dev
 Supported Platforms:
 
 | Operating System|Architecture|Compiler | Notes|
-| :------------- | :----------: | -----------: |-----------:|
-|Windows 10 |x86, x86_64 |MSVC 2019, MSVC 2017 | |
+| :------------- | :----------: | :-----------: | :-----------: |
+|Windows 10 |x86, x86_64 |MSVC 2022, MSVC 2019, MSVC 2017 | |
 |Windows 8.1 |x86, x86_64 |MSVC 2019, MSVC 2017 | |
-|macOS 10.13, 10.14, 10.15, 11.0 |x86, x86_64, Apple Silicon |Xcode 7, 8, 9, 10, 11, 12.2 ||
-|iOS 13, iOS 14 | arm64 |Xcode 11, 12.2| |
+|macOS 10.13, 10.14, 10.15, 11.0, 12.0 |x86, x86_64, Apple Silicon |Xcode 7, 8, 9, 10, 11, 12, 13 ||
+|iOS 13, iOS 14 | arm64 |Xcode 11, 12, 13 | |
 |Linux - Raspberry Pi OS (Buster)  |arm32 |GCC 8.3 and higher|Visual Studio Code|
 |Linux - Ubuntu 18.04 LTS |x86, x86_64 |GCC 8.3 and higher|Visual Studio Code, Qt Creator|
 |Linux - Ubuntu 20.04 LTS |x86, x86_64 |GCC 8.3 and higher|Visual Studio Code, Qt Creator|
@@ -177,9 +177,11 @@ copy_vst2_to_vst3_sdk.bat
 
 <pre>
   examples:
-  cmake.exe -G "Visual Studio 16 2019" -A x64 ..\vst3sdk
+  cmake.exe -G "Visual Studio 17 2022" -A x64 ..\vst3sdk
   or without symbolic links
-  cmake.exe -G "Visual Studio 16 2019" -A x64 ..\vst3sdk -SMTG_CREATE_PLUGIN_LINK=0
+  cmake.exe -G "Visual Studio 17 2022" -A x64 ..\vst3sdk -SMTG_CREATE_PLUGIN_LINK=0
+  or by using the local user program folder (FOLDERID_UserProgramFilesCommon) as VST3 folder
+  cmake.exe -G "Visual Studio 17 2022" -A x64 -SMTG_PLUGIN_TARGET_USER_PROGRAM_FILES_COMMON=1
 </pre>
 
 - Now you can build the plug-in (you can use Visual Studio too):

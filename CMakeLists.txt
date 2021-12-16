@@ -177,3 +177,4 @@ endif(SMTG_ADD_VSTGUI)
 
 include(SMTG_CustomModuleTarget)
 set_target_properties(cmake_modules PROPERTIES ${SDK_IDE_LIBS_FOLDER})
+set_target_properties(cmake_VST_modules PROPERTIES ${SDK_IDE_LIBS_FOLDER})
