@@ -179,9 +179,9 @@ copy_vst2_to_vst3_sdk.bat
   examples:
   cmake.exe -G "Visual Studio 17 2022" -A x64 ..\vst3sdk
   or without symbolic links
-  cmake.exe -G "Visual Studio 17 2022" -A x64 ..\vst3sdk -SMTG_CREATE_PLUGIN_LINK=0
+  cmake.exe -G "Visual Studio 17 2022" -A x64 ..\vst3sdk -DSMTG_CREATE_PLUGIN_LINK=0
   or by using the local user program folder (FOLDERID_UserProgramFilesCommon) as VST3 folder
-  cmake.exe -G "Visual Studio 17 2022" -A x64 -SMTG_PLUGIN_TARGET_USER_PROGRAM_FILES_COMMON=1
+  cmake.exe -G "Visual Studio 17 2022" -A x64 -DSMTG_PLUGIN_TARGET_USER_PROGRAM_FILES_COMMON=1
 </pre>
 
 - Now you can build the plug-in (you can use Visual Studio too):
