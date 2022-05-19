@@ -17,14 +17,14 @@
 
 ## The VST SDK package contains
 
-- The VST 3 API
+- VST 3 API
 - VST 3 Implementation Helper Classes
 - AAX, AU, AUv3 and VST 2 wrappers
 - VST 3 plug-ins Examples
 
 The full VST 3 SDK is available [here!](https://www.steinberg.net/en/company/developers.html). It contains :
 
-- a VST 3 plug-in Test Host Application/Validator,
+- VST 3 plug-in Test Host Application/Validator,
 - the **Steinberg VST 3 Plug-In SDK Licensing Agreement** that you have to sign if you want to develop or host VST 3 Plug-Ins.
 
 <div id='200'/>
@@ -33,15 +33,15 @@ The full VST 3 SDK is available [here!](https://www.steinberg.net/en/company/dev
 
 Supported Platforms:
 
-| Operating System|Architecture|Compiler | Notes|
-| :------------- | :----------: | :-----------: | :-----------: |
-|Windows 10 |x86, x86_64 |MSVC 2022, MSVC 2019, MSVC 2017 | |
-|Windows 8.1 |x86, x86_64 |MSVC 2019, MSVC 2017 | |
-|macOS 10.13, 10.14, 10.15, 11.0, 12.0 |x86, x86_64, Apple Silicon |Xcode 7, 8, 9, 10, 11, 12, 13 ||
-|iOS 13, iOS 14 | arm64 |Xcode 11, 12, 13 | |
-|Linux - Raspberry Pi OS (Buster)  |arm32 |GCC 8.3 and higher|Visual Studio Code|
-|Linux - Ubuntu 18.04 LTS |x86, x86_64 |GCC 8.3 and higher|Visual Studio Code, Qt Creator|
-|Linux - Ubuntu 20.04 LTS |x86, x86_64 |GCC 8.3 and higher|Visual Studio Code, Qt Creator|
+| Operating System                      |Architecture               |Compiler                           | Notes|
+| :------------------------------------ | :-----------------------: | :-------------------------------: | :-----------: |
+|Windows 10/11                          |x86, x86_64, arm64         |MSVC 2022, MSVC 2019               | |
+|Windows 8.1                            |x86, x86_64                |MSVC 2019, MSVC 2017               | |
+|macOS 10.13, 10.14, 10.15, 11.0, 12.0  |x86, x86_64, Apple Silicon |Xcode 7, 8, 9, 10, 11, 12, 13      | |
+|iOS 13, iOS 14                         |arm64                      |Xcode 11, 12, 13                   | |
+|Linux - Raspberry Pi OS (Buster)       |arm32                      |GCC 8.3 and higher                 |Visual Studio Code|
+|Linux - Ubuntu 18.04 LTS               |x86, x86_64                |GCC 8.3 and higher                 |Visual Studio Code, Qt Creator|
+|Linux - Ubuntu 20.04 LTS               |x86, x86_64                |GCC 8.3 and higher                 |Visual Studio Code, Qt Creator|
 
 ---
 <div id='300'/>
@@ -62,8 +62,8 @@ To learn more about VST you can:
 
 - subscribe to the [VST Developer Forum](https://sdk.steinberg.net)
 - check the 3rd Party Developer Support section at [www.steinberg.net](https://www.steinberg.net/en/company/developers.html)
-- check the online documentation under: [steinbergmedia.github.io/vst3_doc](
-https://steinbergmedia.github.io/vst3_doc)
+- check the VST 3 SDK online documentation under: [steinbergmedia.github.io/vst3_dev_portal](https://steinbergmedia.github.io/vst3_dev_portal/pages/index.html)
+- check the online documentation under: [steinbergmedia.github.io/vst3_doc](https://steinbergmedia.github.io/vst3_doc)
 
  ---
 <div id='400'/>
@@ -74,7 +74,7 @@ VST 3 is a general rework of the long-serving VST plug-in interface. It is not c
 
 ### 1. Improved Performance with the Silence Flag
 
-Processing can optionally be applied to plug-ins only when audio signals are present on their respective inputs, so VST 3 plug-ins can apply their processing economically and only when it is needed. 
+Processing can optionally be applied to plug-ins only when audio signals are present on their respective inputs, so VST 3 plug-ins can apply their processing economically and only when it is needed.
 
 ### 2. Multiple Dynamic I/Os
 
@@ -142,8 +142,9 @@ Some more features implemented specifically for developers include:
 
 ### Get the source code from GitHub
 
-<pre>git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
-</pre>
+```c
+git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
+```
 
 ### Adding VST2 version
 
@@ -152,104 +153,104 @@ In order to build a VST2 version of the plug-in and a VST3 at the same time, you
 
 - for macOS:
 
-<pre>
+```c
 cd TheFolderWhereYouDownloadTheSDK
 ./copy_vst2_to_vst3_sdk.sh
-</pre>
+```
 
 - for Windows:
 
-<pre>
+```c
 cd TheFolderWhereYouDownloadTheSDK
 copy_vst2_to_vst3_sdk.bat
-</pre>
+```
 
 ### Build the examples on Windows
 
 - Create a folder for the build and move to this folder (using cd):
 
-<pre>
-  mkdir build
-  cd build
-</pre>
+```c
+mkdir build
+cd build
+```
 
 - Generate the Solution/Projects: provide the path of the Project where CMakeLists.txt is located:
 
-<pre>
-  examples:
-  cmake.exe -G "Visual Studio 17 2022" -A x64 ..\vst3sdk
-  or without symbolic links
-  cmake.exe -G "Visual Studio 17 2022" -A x64 ..\vst3sdk -SMTG_CREATE_PLUGIN_LINK=0
-  or by using the local user program folder (FOLDERID_UserProgramFilesCommon) as VST3 folder
-  cmake.exe -G "Visual Studio 17 2022" -A x64 -SMTG_PLUGIN_TARGET_USER_PROGRAM_FILES_COMMON=1
-</pre>
+```c
+// examples:
+cmake.exe -G "Visual Studio 17 2022" -A x64 ..\vst3sdk
+// or without symbolic links
+cmake.exe -G "Visual Studio 17 2022" -A x64 ..\vst3sdk -DSMTG_CREATE_PLUGIN_LINK=0
+// or by using the local user program folder (FOLDERID_UserProgramFilesCommon) as VST3 folder
+cmake.exe -G "Visual Studio 17 2022" -A x64 -DSMTG_PLUGIN_TARGET_USER_PROGRAM_FILES_COMMON=1
+```
 
 - Now you can build the plug-in (you can use Visual Studio too):
 
-<pre>
-  msbuild.exe vstsdk.sln
-  (or alternatively for example for release)
-  cmake --build . --config Release
-</pre>
+```c
+msbuild.exe vstsdk.sln
+// (or alternatively for example for release)
+cmake --build . --config Release
+```
 
 ### Build the examples on macOS
 
 - Create a folder for the build and move to this folder (using cd):
 
-<pre>
-    mkdir build
-    cd build
-</pre>
+```c
+mkdir build
+cd build
+```
 
 - Generate the Solution/Projects: provide the path of the Project where CMakeLists.txt is located:
 
-<pre>
-  For XCode:
-    cmake -GXcode ../vst3sdk
-  Without XCode (here debug variant):
-    cmake -DCMAKE_BUILD_TYPE=Debug ../
-</pre>
+```c
+// For XCode:
+   cmake -GXcode ../vst3sdk
+// Without XCode (here debug variant):
+   cmake -DCMAKE_BUILD_TYPE=Debug ../
+```
 
 - Now you can build the plug-in (you can use XCode too):
 
-<pre>
-    xcodebuild 
- (or alternatively for example for release)
-    cmake --build . --config Release
-</pre>
+```c
+xcodebuild 
+// (or alternatively for example for release)
+cmake --build . --config Release
+```
 
 ### Build the examples on Linux
 
-- Install the required packages [Package Requirements](https://developer.steinberg.help/display/VST/How+to+set+up+my+system+for+VST+3#HowtosetupmysystemforVST3-ForLinux)
+- Install the required packages [Package Requirements](https://steinbergmedia.github.io/vst3_dev_portal/pages/Getting+Started/How+to+setup+my+system.html#for-linux)
 - Create a folder for the build and move to this folder (using cd):
 
-<pre>
-  mkdir build
-  cd build
-</pre>
+```c
+mkdir build
+cd build
+```
 
 - Generate the Solution/Projects: provide the path of the Project where CMakeLists.txt is located:
 
-<pre>
-  cmake ../vst3sdk
-</pre>
+```c
+cmake ../vst3sdk
+```
 
 - Now you can build the plug-in:
 
-<pre>
-  make
-  (or alternatively for example for release)
-  cmake --build . --config Release
-</pre>
+```c
+make
+// (or alternatively for example for release)
+cmake --build . --config Release
+```
 
 ### Build using cmake-gui
 
 - start the cmake-gui Application
-- "Browse Source...": select the folder vst3sdk
-- "Browse Build...": select a folder where the outputs (projects/...) will be created. Typically a folder named "build"
+- **Browse Source...**: select the folder vst3sdk
+- **Browse Build...**: select a folder where the outputs (projects/...) will be created. Typically, a folder named "build"
 - you can check the SMTG Options
-- Press "Configure"
-- Press "Generate" and the project will be created
+- Press **Configure**
+- Press **Generate** and the project will be created
 
 ---
 <div id='600'/>

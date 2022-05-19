@@ -1,5 +1,5 @@
 
-cmake_minimum_required (VERSION 3.4.3)
+cmake_minimum_required (VERSION 3.19)
 
 #-------------------------------------------------------------------------------
 # Options
@@ -21,7 +21,11 @@ include(SMTG_VST3_SDK)
 #-------------------------------------------------------------------------------
 # SDK Project
 #-------------------------------------------------------------------------------
-project(vstsdk)
+project(vstsdk
+    VERSION 3.7.5
+    DESCRIPTION "Steinberg VST 3 Software Development Kit"
+    HOMEPAGE_URL "https://www.steinberg.net"
+)
 
 smtg_setup_platform_toolset()
 
@@ -90,6 +94,10 @@ endif(SMTG_AAX_SDK_PATH)
 # Add hosting examples, it includes the validator (must be done before any plug-ins to support running the validator after building)
 set(SDK_IDE_HOSTING_EXAMPLES_FOLDER FOLDER "HostingExamples")
 add_subdirectory(public.sdk/samples/vst-hosting)
+
+# Add utilities
+set(SDK_IDE_UTILITIES_FOLDER FOLDER "Utilities")
+add_subdirectory(public.sdk/samples/vst-utilities)
 
 #-------------------------------------------------------------------------------
 # Here is added your own plug-ins folder location
