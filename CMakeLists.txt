@@ -22,7 +22,7 @@ include(SMTG_VST3_SDK)
 # SDK Project
 #-------------------------------------------------------------------------------
 project(vstsdk
-    VERSION 3.7.5
+    VERSION 3.7.6
     DESCRIPTION "Steinberg VST 3 Software Development Kit"
     HOMEPAGE_URL "https://www.steinberg.net"
 )
@@ -51,8 +51,7 @@ endif()
 
 # Here you can define where the VSTGUI is located
 if(SMTG_ADD_VSTGUI)
-    set(SMTG_VSTGUI_ROOT "${ROOT}")
-    smtg_enable_vstgui_support()
+    smtg_enable_vstgui_support(VSTGUI_SOURCE_DIR "${ROOT}/vstgui4")
 endif(SMTG_ADD_VSTGUI)
 
 include_directories(${ROOT} ${SDK_ROOT})
@@ -123,66 +122,51 @@ endif(SMTG_ADD_MYPLUGINS_SRC_PATH)
 if(SMTG_ADD_VST3_PLUGINS_SAMPLES)
     set(SDK_IDE_PLUGIN_EXAMPLES_FOLDER FOLDER "PlugInExamples")
     add_subdirectory(public.sdk/samples/vst)
-    add_subdirectory(public.sdk/source/vst/auwrapper/again)
     add_subdirectory(public.sdk/source/vst/auv3wrapper)
 endif(SMTG_ADD_VST3_PLUGINS_SAMPLES)
 
 #-------------------------------------------------------------------------------
 # IDE sorting
 #-------------------------------------------------------------------------------
-set_target_properties(sdk
-    PROPERTIES
+include(SMTG_CustomModuleTarget)
+
+set_property(
+    TARGET
+        sdk
+        sdk_common
+        sdk_hosting
+        base
+        pluginterfaces
+        cmake_modules
+        cmake_VST_modules
+    PROPERTY 
         ${SDK_IDE_LIBS_FOLDER}
 )
-set_target_properties(sdk_common
-    PROPERTIES
-        ${SDK_IDE_LIBS_FOLDER}
-)
-set_target_properties(sdk_hosting
-    PROPERTIES
-        ${SDK_IDE_LIBS_FOLDER}
-)
-set_target_properties(base
-    PROPERTIES
-        ${SDK_IDE_LIBS_FOLDER}
-)
-set_target_properties(pluginterfaces
-    PROPERTIES
-        ${SDK_IDE_LIBS_FOLDER}
-)
+
 if(TARGET base_ios)
-    set_target_properties(base_ios
-        PROPERTIES
+    set_property(
+        TARGET
+            base_ios
+            pluginterfaces_ios
+        PROPERTY 
             ${SDK_IDE_LIBS_FOLDER}
     )
-    set_target_properties(pluginterfaces_ios
-        PROPERTIES
-            ${SDK_IDE_LIBS_FOLDER}
-    )
-endif(TARGET base_ios)
+endif()
 
 if(SMTG_ADD_VSTGUI)
-    set_target_properties(vstgui
-        PROPERTIES
+    set_property(
+        TARGET
+            vstgui
+            vstgui_support
+            vstgui_uidescription
+        PROPERTY 
             ${SDK_IDE_LIBS_FOLDER}
     )
-    set_target_properties(vstgui_support
-        PROPERTIES
-            ${SDK_IDE_LIBS_FOLDER}
-    )
-    set_target_properties(vstgui_uidescription
-        PROPERTIES
-            ${SDK_IDE_LIBS_FOLDER}
-    )
-
+ 
     if(TARGET vstgui_standalone)
         set_target_properties(vstgui_standalone
             PROPERTIES
                 ${SDK_IDE_LIBS_FOLDER}
         )
-    endif(TARGET vstgui_standalone)
-endif(SMTG_ADD_VSTGUI)
-
-include(SMTG_CustomModuleTarget)
-set_target_properties(cmake_modules PROPERTIES ${SDK_IDE_LIBS_FOLDER})
-set_target_properties(cmake_VST_modules PROPERTIES ${SDK_IDE_LIBS_FOLDER})
+    endif()
+endif()
