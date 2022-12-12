@@ -25,8 +25,7 @@
 The full VST 3 SDK is available [here!](https://www.steinberg.net/en/company/developers.html). It contains :
 
 - VST 3 plug-in Test Host Application/Validator,
-- the **Steinberg VST 3 Plug-In SDK Licensing Agreement** that you have to sign if you want to develop or host VST 3 Plug-Ins.
-- VST 3 Project Generator
+- the **Steinberg VST 3 Plug-In SDK Licensing Agreement** that you have to sign if you want to develop or host **VST 3** plug-ins.
 
 <div id='200'/>
 
@@ -38,8 +37,8 @@ Supported Platforms:
 | :------------------------------------ | :-----------------------: | :-------------------------------: | :-----------: |
 |Windows 10/11                          |x86, x86_64, arm64         |MSVC 2022, MSVC 2019               | |
 |Windows 8.1                            |x86, x86_64                |MSVC 2019, MSVC 2017               | |
-|macOS 10.13, 10.14, 10.15, 11.0, 12.0  |x86, x86_64, Apple Silicon |Xcode 7, 8, 9, 10, 11, 12, 13      | |
-|iOS 13, iOS 14                         |arm64                      |Xcode 11, 12, 13                   | |
+|macOS 10.13, 10.14, 10.15, 11, 12, 13  |x86, x86_64, Apple Silicon |Xcode 10 - 14                      | |
+|iOS 13 - iOS 16                        |arm64                      |Xcode 11 - 14                      | |
 |Linux - Raspberry Pi OS (Buster)       |arm32                      |GCC 8.3 and higher                 |Visual Studio Code|
 |Linux - Ubuntu 18.04 LTS               |x86, x86_64                |GCC 8.3 and higher                 |Visual Studio Code, Qt Creator|
 |Linux - Ubuntu 20.04 LTS               |x86, x86_64                |GCC 8.3 and higher                 |Visual Studio Code, Qt Creator|
@@ -49,9 +48,9 @@ Supported Platforms:
 
 ## About VST plug-ins in general
 
-A VST plug-in is an audio processing component that is utilized within a host application. This host application provides the audio or/and event streams that are processed by the plug-in's code. Generally speaking, a VST plug-in can take a stream of audio data, apply a process to the audio, and return the result to the host application. A VST Plug-in performs its process normally using the processor of the computer. The audio stream is broken down into a series of blocks. The host supplies the blocks in sequence. The host and its current environment control the block-size. The VST Plug-in maintains the status of all its own parameters relating to the running process: The host does not maintain any information about what the Plug-in did with the last block of data it processed.
+A VST plug-in is an audio processing component that is utilized within a host application. This host application provides the audio or/and event streams that are processed by the plug-in's code. Generally speaking, a VST plug-in can take a stream of audio data, apply a process to the audio, and return the result to the host application. A VST plug-in performs its process normally using the processor of the computer. The audio stream is broken down into a series of blocks. The host supplies the blocks in sequence. The host and its current environment control the block-size. The VST plug-in maintains the status of all its own parameters relating to the running process: The host does not maintain any information about what the plug-in did with the last block of data it processed.
 
-From the host application's point of view, a VST plug-in is a black box with an arbitrary number of inputs, outputs (Event (MIDI) or Audio), and associated parameters. The host needs no implicit knowledge of the plug-in's process to be able to use it. The Plug-in process can use whatever parameters it wishes, internally to the process, but depending on the capabilities of the host, it can allow the changes to user parameters to be automated by the host.
+From the host application's point of view, a VST plug-in is a black box with an arbitrary number of inputs, outputs (Event (MIDI) or Audio), and associated parameters. The host needs no implicit knowledge of the plug-in's process to be able to use it. The plug-in process can use whatever parameters it wishes, internally to the process, but depending on the capabilities of the host, it can allow the changes to user parameters to be automated by the host.
 
 The source code of a VST plug-in is platform independent, but the delivery system depends on the platform architecture:
 
@@ -149,7 +148,7 @@ git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
 
 ### Adding VST2 version
 
-The VST2 SDK is not part anymore of the VST3 SDK, you have to use an older version of the SDK and copy the vst2sdk folder into the VST_SDK folder.
+The **VST 2 SDK** is not part anymore of the **VST 3 SDK**, you have to use an older version of the SDK and copy the vst2sdk folder into the VST_SDK folder.
 In order to build a VST2 version of the plug-in and a VST3 at the same time, you need to copy the VST2 folder into the VST3 folder, simply run the following commands:
 
 - for macOS:
@@ -207,9 +206,9 @@ cd build
 
 ```c
 // For XCode:
-   cmake -GXcode ../vst3sdk
+cmake -GXcode ../vst3sdk
 // Without XCode (here debug variant):
-   cmake -DCMAKE_BUILD_TYPE=Debug ../
+cmake -DCMAKE_BUILD_TYPE=Debug ../
 ```
 
 - Now you can build the plug-in (you can use XCode too):

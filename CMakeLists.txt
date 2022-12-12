@@ -1,13 +1,19 @@
 
 cmake_minimum_required (VERSION 3.19)
 
+# Specify the minimum version of the target platform
+if(NOT DEFINED ENV{MACOSX_DEPLOYMENT_TARGET})
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.13" CACHE STRING "macOS deployment target")
+    message(STATUS "[SMTG] macOS Deployment Target: ${CMAKE_OSX_DEPLOYMENT_TARGET}")
+endif()
+
 #-------------------------------------------------------------------------------
 # Options
 #-------------------------------------------------------------------------------
-# Add VST3 Plug-ins Samples
-option(SMTG_ADD_VST3_PLUGINS_SAMPLES "Add VST3 Plug-ins Samples to the solution" ON)
+# Add VST 3 Plug-ins Samples
+option(SMTG_ADD_VST3_PLUGINS_SAMPLES "Add VST 3 Plug-ins Samples to the solution" ON)
 
-# Add and use VSTGUI (enable VST3 Plug-ins Samples using VSTGUI)
+# Add and use VSTGUI (enable VST 3 Plug-ins Samples using VSTGUI)
 option(SMTG_ADD_VSTGUI "Add VSTGUI Support" ON)
 
 #-------------------------------------------------------------------------------
@@ -22,7 +28,7 @@ include(SMTG_VST3_SDK)
 # SDK Project
 #-------------------------------------------------------------------------------
 project(vstsdk
-    VERSION 3.7.6
+    VERSION 3.7.7
     DESCRIPTION "Steinberg VST 3 Software Development Kit"
     HOMEPAGE_URL "https://www.steinberg.net"
 )
@@ -36,12 +42,12 @@ set(SDK_ROOT "${ROOT}")
 set(public_sdk_SOURCE_DIR ${SDK_ROOT}/public.sdk)
 set(pluginterfaces_SOURCE_DIR ${SDK_ROOT}/pluginterfaces)
 
-# Disable all VST3 samples when using SDK as subdirectory
+# Disable all VST 3 samples when using SDK as subdirectory
 message(STATUS "[SMTG] CMAKE_SOURCE_DIR is set to: ${CMAKE_SOURCE_DIR}")
 message(STATUS "[SMTG] CMAKE_CURRENT_LIST_DIR is set to: ${CMAKE_CURRENT_LIST_DIR}")
 
 if(NOT ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_LIST_DIR})
-    message(STATUS "[SMTG] Disable all VST3 samples")
+    message(STATUS "[SMTG] Disable all VST 3 samples")
     set(SMTG_ADD_VST3_PLUGINS_SAMPLES OFF)
     set(SMTG_ADD_VST3_HOSTING_SAMPLES OFF)
     set(SMTG_ADD_MYPLUGINS_SRC_PATH OFF)
@@ -60,10 +66,11 @@ include_directories(${ROOT} ${SDK_ROOT})
 # From Here this is optional...
 
 #-------------------------------------------------------------------------------
-# CORE AUDIO SDK, AAX SDK
+# CORE AUDIO SDK, AAX SDK, JACK SUPPORT
 #-------------------------------------------------------------------------------
 setupCoreAudioSupport()
 setupAaxSupport()
+setupJackSupport()
 
 #-------------------------------------------------------------------------------
 # Projects
@@ -78,17 +85,17 @@ add_subdirectory(public.sdk)
 add_subdirectory(public.sdk/source/vst/interappaudio)
 
 #---Add Wrappers (AU, AAX)-----------------------
-if(SMTG_COREAUDIO_SDK_PATH)
+if(NOT "${SMTG_COREAUDIO_SDK_PATH}" STREQUAL "")
     add_subdirectory(public.sdk/source/vst/auwrapper)
-endif(SMTG_COREAUDIO_SDK_PATH)
+endif()
 
-if(SMTG_AAX_SDK_PATH)
+if(NOT "${SMTG_AAX_SDK_PATH}" STREQUAL "")
     add_subdirectory(public.sdk/source/vst/aaxwrapper)
     set_target_properties(aaxwrapper
         PROPERTIES
             ${SDK_IDE_LIBS_FOLDER}
     )
-endif(SMTG_AAX_SDK_PATH)
+endif()
 
 # Add hosting examples, it includes the validator (must be done before any plug-ins to support running the validator after building)
 set(SDK_IDE_HOSTING_EXAMPLES_FOLDER FOLDER "HostingExamples")
@@ -103,7 +110,7 @@ add_subdirectory(public.sdk/samples/vst-utilities)
 # (by default we add the HelloWorld included in my_plugins folder)
 #-------------------------------------------------------------------------------
 if(SMTG_ADD_MYPLUGINS_SRC_PATH)
-    set(SMTG_MYPLUGINS_SRC_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../my_plugins" CACHE PATH "Here you can add Your VST3 Plug-ins folder")
+    set(SMTG_MYPLUGINS_SRC_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../my_plugins" CACHE PATH "Here you can add Your VST 3 plug-ins folder")
 
     if(EXISTS ${SMTG_MYPLUGINS_SRC_PATH})
         message(STATUS "[SMTG] SMTG_MYPLUGINS_SRC_PATH is set to: " ${SMTG_MYPLUGINS_SRC_PATH})
@@ -118,7 +125,7 @@ if(SMTG_ADD_MYPLUGINS_SRC_PATH)
     endif()
 endif(SMTG_ADD_MYPLUGINS_SRC_PATH)
 
-#---Add VST3 examples (plug-ins and hosting)-----
+#---Add VST 3 examples (plug-ins and hosting)-----
 if(SMTG_ADD_VST3_PLUGINS_SAMPLES)
     set(SDK_IDE_PLUGIN_EXAMPLES_FOLDER FOLDER "PlugInExamples")
     add_subdirectory(public.sdk/samples/vst)
