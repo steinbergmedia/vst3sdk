@@ -23,12 +23,13 @@ include(SMTG_VST3_SDK)
 # SDK Project
 #-------------------------------------------------------------------------------
 project(vstsdk
-    VERSION 3.7.8
+    VERSION 3.7.9
     DESCRIPTION "Steinberg VST 3 Software Development Kit"
     HOMEPAGE_URL "https://www.steinberg.net"
 )
 
 smtg_setup_platform_toolset()
+smtg_setup_symbol_visibility()
 
 set(ROOT "${CMAKE_CURRENT_SOURCE_DIR}")
 
@@ -47,11 +48,11 @@ include_directories(${ROOT} ${SDK_ROOT})
 # From Here this is optional...
 
 #-------------------------------------------------------------------------------
-# CORE AUDIO SDK, AAX SDK, JACK SUPPORT
+# CORE AUDIO SDK, AAX SDK
 #-------------------------------------------------------------------------------
 setupCoreAudioSupport()
 setupAaxSupport()
-setupJackSupport()
+include(SMTG_FindJack)
 
 #-------------------------------------------------------------------------------
 # Projects
@@ -138,3 +139,42 @@ if(SMTG_ENABLE_VSTGUI_SUPPORT)
         )
     endif()
 endif()
+
+#-------------------------------------------------------------------------------
+# macOS & iOS collection targets 
+#-------------------------------------------------------------------------------
+option(SMTG_VSTSDK_GENERATE_MACOS_IOS_COLLECTION_TARGETS "Create macOS and iOS collection targets" OFF)
+
+if(SMTG_VSTSDK_GENERATE_MACOS_IOS_COLLECTION_TARGETS)
+
+	function(get_all_targets var)
+		set(targets)
+		get_all_targets_recursive(targets ${CMAKE_CURRENT_SOURCE_DIR})
+		set(${var} ${targets} PARENT_SCOPE)
+	endfunction()
+
+	macro(get_all_targets_recursive targets dir)
+		get_property(subdirectories DIRECTORY ${dir} PROPERTY SUBDIRECTORIES)
+		foreach(subdir ${subdirectories})
+			get_all_targets_recursive(${targets} ${subdir})
+		endforeach()
+
+		get_property(current_targets DIRECTORY ${dir} PROPERTY BUILDSYSTEM_TARGETS)
+		list(APPEND ${targets} ${current_targets})
+	endmacro()
+
+	get_all_targets(all_targets)
+
+	add_custom_target(iOS_Targets)
+	add_custom_target(macOS_Targets)
+
+	foreach(target_name ${all_targets})
+		if(${target_name} MATCHES "ios")
+			add_dependencies(iOS_Targets ${target_name})
+		else()
+			add_dependencies(macOS_Targets ${target_name})
+		endif()
+	endforeach()
+
+endif()
+
