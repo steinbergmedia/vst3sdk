@@ -1,5 +1,5 @@
 
-cmake_minimum_required (VERSION 3.19)
+cmake_minimum_required (VERSION 3.19.0)
 
 # Specify the minimum version of the target platform
 if(NOT DEFINED ENV{MACOSX_DEPLOYMENT_TARGET})
@@ -23,7 +23,7 @@ include(SMTG_VST3_SDK)
 # SDK Project
 #-------------------------------------------------------------------------------
 project(vstsdk
-    VERSION 3.7.9
+    VERSION 3.7.10
     DESCRIPTION "Steinberg VST 3 Software Development Kit"
     HOMEPAGE_URL "https://www.steinberg.net"
 )

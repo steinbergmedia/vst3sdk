@@ -192,6 +192,7 @@ msbuild.exe vstsdk.sln
 // (or alternatively for example for release)
 cmake --build . --config Release
 ```
+Note: If you have any issue with symbolic links, check [Preparation on Windows](https://steinbergmedia.github.io/vst3_dev_portal/pages/Getting+Started/Preparation+on+Windows.html) for potential solutions.
 
 ### Build the examples on macOS
 
