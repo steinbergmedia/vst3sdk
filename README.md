@@ -19,10 +19,10 @@
 
 - VST 3 API
 - VST 3 Implementation Helper Classes
-- AAX, AU, AUv3 and VST 2 wrappers
+- AAX, AUv3 and AU Wrappers
 - VST 3 plug-ins Examples
 
-The full VST 3 SDK is available [here!](https://www.steinberg.net/en/company/developers.html). It contains :
+The full VST 3 SDK is available [here!](https://www.steinberg.net/en/company/developers.html). It contains:
 
 - VST 3 plug-in Test Host Application/Validator,
 - the **Steinberg VST 3 Plug-In SDK Licensing Agreement** that you have to sign if you want to develop or host **VST 3** plug-ins.
@@ -144,25 +144,6 @@ Some more features implemented specifically for developers include:
 
 ```c
 git clone --recursive https://github.com/steinbergmedia/vst3sdk.git
-```
-
-### Adding VST2 version
-
-The **VST 2 SDK** is not part anymore of the **VST 3 SDK**, you have to use an older version of the SDK and copy the vst2sdk folder into the VST_SDK folder.
-In order to build a VST2 version of the plug-in and a VST3 at the same time, you need to copy the VST2 folder into the VST3 folder, simply run the following commands:
-
-- for macOS:
-
-```c
-cd TheFolderWhereYouDownloadTheSDK
-./copy_vst2_to_vst3_sdk.sh
-```
-
-- for Windows:
-
-```c
-cd TheFolderWhereYouDownloadTheSDK
-copy_vst2_to_vst3_sdk.bat
 ```
 
 ### Build the examples on Windows
