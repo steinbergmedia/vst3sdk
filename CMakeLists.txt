@@ -67,20 +67,20 @@ add_subdirectory(public.sdk)
 add_subdirectory(public.sdk/source/vst/interappaudio)
 
 #---Add Wrappers (AU, AAX)-----------------------
-if(NOT "${SMTG_COREAUDIO_SDK_PATH}" STREQUAL "")
+if(NOT "${SMTG_ENABLE_AUV2_BUILDS}" STREQUAL "")
     add_subdirectory(public.sdk/source/vst/auwrapper)
 endif()
 
 if(NOT "${SMTG_AAX_SDK_PATH}" STREQUAL "")
     add_subdirectory(public.sdk/source/vst/aaxwrapper)
-    set_target_properties(aaxwrapper
+    set_target_properties(aax_wrapper
         PROPERTIES
             ${SDK_IDE_LIBS_FOLDER}
     )
 endif()
 
 # Add hosting examples, it includes the validator (must be done before any plug-ins to support running the validator after building)
-set(SDK_IDE_HOSTING_EXAMPLES_FOLDER FOLDER "HostingExamples")
+set(SDK_IDE_HOSTING_EXAMPLES_FOLDER FOLDER "Hosting-Examples")
 add_subdirectory(public.sdk/samples/vst-hosting)
 
 # Add utilities
@@ -89,7 +89,7 @@ add_subdirectory(public.sdk/samples/vst-utilities)
 
 #---Add VST 3 examples (plug-ins and hosting)-----
 if(SMTG_ENABLE_VST3_PLUGIN_EXAMPLES)
-    set(SDK_IDE_PLUGIN_EXAMPLES_FOLDER FOLDER "PlugInExamples")
+    set(SDK_IDE_PLUGIN_EXAMPLES_FOLDER FOLDER "PlugIn-Examples")
     add_subdirectory(public.sdk/samples/vst)
     add_subdirectory(public.sdk/source/vst/auv3wrapper)
 endif()
@@ -177,4 +177,3 @@ if(SMTG_VSTSDK_GENERATE_MACOS_IOS_COLLECTION_TARGETS)
 	endforeach()
 
 endif()
-
