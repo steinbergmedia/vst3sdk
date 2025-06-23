@@ -23,7 +23,7 @@ include(SMTG_VST3_SDK)
 # SDK Project
 #-------------------------------------------------------------------------------
 project(vstsdk
-    VERSION 3.7.13
+    VERSION 3.7.14
     DESCRIPTION "Steinberg VST 3 Software Development Kit"
     HOMEPAGE_URL "https://www.steinberg.net"
 )
