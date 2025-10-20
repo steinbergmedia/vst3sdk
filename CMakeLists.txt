@@ -10,20 +10,21 @@ endif()
 option(SMTG_ENABLE_VST3_PLUGIN_EXAMPLES "Enable VST 3 Plug-in Examples" ON)
 option(SMTG_ENABLE_VST3_HOSTING_EXAMPLES "Enable VST 3 Hosting Examples" ON)
 option(SMTG_ENABLE_VSTGUI_SUPPORT "Enable VSTGUI Support" ON)
+option(SMTG_ENABLE_WAYLAND_SUPPORT "Enable Wayland Support (Linux only)" OFF)
 
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # Includes
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
 
 include(SMTG_VST3_SDK)
 
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # SDK Project
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 project(vstsdk
-    VERSION 3.7.14
+    VERSION 3.8.0
     DESCRIPTION "Steinberg VST 3 Software Development Kit"
     HOMEPAGE_URL "https://www.steinberg.net"
 )
@@ -39,44 +40,44 @@ set(public_sdk_SOURCE_DIR ${SDK_ROOT}/public.sdk)
 set(pluginterfaces_SOURCE_DIR ${SDK_ROOT}/pluginterfaces)
 
 if(SMTG_ENABLE_VSTGUI_SUPPORT)
+    set(VSTGUI_ENABLE_WAYLAND_SUPPORT ${SMTG_ENABLE_WAYLAND_SUPPORT})
     smtg_enable_vstgui_support(VSTGUI_SOURCE_DIR "${ROOT}/vstgui4")
 endif()
 
 include_directories(${ROOT} ${SDK_ROOT})
 
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # From Here this is optional...
 
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # CORE AUDIO SDK, AAX SDK
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 setupCoreAudioSupport()
 setupAaxSupport()
 include(SMTG_FindJack)
 
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # Projects
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 set(SDK_IDE_LIBS_FOLDER FOLDER "Libraries")
 
 #---Add base libraries---------------------------
+smtg_create_lib_base_target()
+smtg_create_pluginterfaces_target()
+smtg_create_public_sdk_common_target()
+smtg_create_public_sdk_target()
+smtg_create_public_sdk_hosting_target()
+
 set(VST_SDK TRUE) # used for pluginterfaces and public.sdk modules which provides only a subset of them for VST-SDK
-add_subdirectory(pluginterfaces)
-add_subdirectory(base)
-add_subdirectory(public.sdk)
 add_subdirectory(public.sdk/source/vst/interappaudio)
 
 #---Add Wrappers (AU, AAX)-----------------------
-if(NOT "${SMTG_ENABLE_AUV2_BUILDS}" STREQUAL "")
+if (NOT SMTG_ENABLE_AUV2_BUILDS)
     add_subdirectory(public.sdk/source/vst/auwrapper)
 endif()
 
 if(NOT "${SMTG_AAX_SDK_PATH}" STREQUAL "")
     add_subdirectory(public.sdk/source/vst/aaxwrapper)
-    set_target_properties(aax_wrapper
-        PROPERTIES
-            ${SDK_IDE_LIBS_FOLDER}
-    )
 endif()
 
 # Add hosting examples, it includes the validator (must be done before any plug-ins to support running the validator after building)
@@ -94,9 +95,9 @@ if(SMTG_ENABLE_VST3_PLUGIN_EXAMPLES)
     add_subdirectory(public.sdk/source/vst/auv3wrapper)
 endif()
 
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # IDE sorting
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 include(SMTG_CustomModuleTarget)
 
 set_property(
@@ -140,9 +141,16 @@ if(SMTG_ENABLE_VSTGUI_SUPPORT)
     endif()
 endif()
 
-#-------------------------------------------------------------------------------
+if(TARGET aax_wrapper)
+    set_target_properties(aax_wrapper
+        PROPERTIES
+            ${SDK_IDE_LIBS_FOLDER}
+    )
+endif()
+
+# -------------------------------------------------------------------------------
 # macOS & iOS collection targets 
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 option(SMTG_VSTSDK_GENERATE_MACOS_IOS_COLLECTION_TARGETS "Create macOS and iOS collection targets" OFF)
 
 if(SMTG_VSTSDK_GENERATE_MACOS_IOS_COLLECTION_TARGETS)

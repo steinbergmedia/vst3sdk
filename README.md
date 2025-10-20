@@ -1,7 +1,7 @@
 <div style="text-align:center">
 <img src="https://steinbergmedia.github.io/vst3_doc/gfx/vst3_logo.jpg" alt="VST 3 SDK" /></div>
 
-# Welcome to VST SDK 3.7.x
+# Welcome to VST SDK 3.8.x
 
 ## Table Of Contents
 
@@ -136,7 +136,7 @@ Some more features implemented specifically for developers include:
 ---
 <div id='500'/>
 
-## How to build VST3
+## How to build VST 3
 
 ### Get the source code from GitHub
 
@@ -232,16 +232,65 @@ cmake --build . --config Release
 - Press **Configure**
 - Press **Generate** and the project will be created
 
----
 <div id='600'/>
 
 ## Contributing
 
 For bug reports and features requests, please visit the [VST Developer Forum](https://sdk.steinberg.net)
 
----
+
 <div id='700'/>
 
 ## License & Usage guidelines
 
+- **VST 3 SDK** is under [MIT license](https://tlo.mit.edu/understand-ip/exploring-mit-open-source-license-comprehensive-guide).
+
+- Developers can adopt the [MIT license](https://tlo.mit.edu/understand-ip/exploring-mit-open-source-license-comprehensive-guide) for full open-source integration.
+
+- Licensing under **GPLv3** and the **Steinberg proprietary license** is no longer available.
+
+- Code licensed under [MIT license](https://tlo.mit.edu/understand-ip/exploring-mit-open-source-license-comprehensive-guide) can be used, modified, and redistributed freely — including in commercial products — provided [MIT license](https://tlo.mit.edu/understand-ip/exploring-mit-open-source-license-comprehensive-guide) terms are followed. 
+
 More details are found at [www.steinberg.net/sdklicenses_vst3](http://www.steinberg.net/sdklicenses_vst3)
+
+### Trademark and Logo Usage 
+
+#### General Principle 
+
+Trademark usage (e.g. "VST" name or logo) is optional under [MIT license](https://tlo.mit.edu/understand-ip/exploring-mit-open-source-license-comprehensive-guide), but if used, must comply with Steinberg's official trademark rules. 
+
+#### Permitted Use (if selected) 
+
+If you choose to display the **VST Compatible Logo** or refer to the **VST trademark**: 
+
+ - Logos must be used in unaltered form.
+ - Use must follow the official usage guidelines provided in the SDK.
+ - The trademark/logo must appear only in clear product-related contexts, such as: 
+    - Splash screens
+    - About boxes
+    - Product websites
+    - Documentation and manuals 
+
+This ensures legal compliance and brand consistency. 
+
+#### Prohibited Use 
+
+- Using “VST” (or derivatives like “VSTi”) in company or product names.
+- Applying the logo or trademark to non-VST-compatible products.
+- Associating the trademark with offensive, obscene, or inappropriate content.
+ 
+#### VST trademark and/or VST Compatible Logo 
+
+If you choose to display the **VST trademark** and/or **VST Compatible Logo**, you must observe the *Steinberg VST Usage Guidelines*. 
+
+*Purpose*: To assist Steinberg in enforcing and protecting the **VST trademark** in international jurisdictions. 
+
+#### Notes for Developers 
+
+- The *Steinberg VST Usage Guidelines* are included in the SDK.
+- Use of branding is not required under [MIT license](https://tlo.mit.edu/understand-ip/exploring-mit-open-source-license-comprehensive-guide), but if you choose to use it, trademark compliance is mandatory.
+- Non-compliance with logo guidelines does not affect your MIT rights (but may result in trademark violations).
+ 
+#### Best Practice Recommendation 
+
+Although optional, we encourage developers using VST under [MIT license](https://tlo.mit.edu/understand-ip/exploring-mit-open-source-license-comprehensive-guide) to follow the *Steinberg VST Usage Guidelines*.It fosters ecosystem-wide recognition, improves end-user trust, and supports the long-term visibility of the **VST** brand.
